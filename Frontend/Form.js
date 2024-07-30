@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import './styles3.css'; // If you have separate CSS file
+import axios from 'axios';
 
 const PatientInformation = () => {
   const [form, setForm] = useState({
@@ -28,11 +29,31 @@ const PatientInformation = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission logic here
-    console.log(form);
-  };
+    
+    try {
+      const response = await fetch('http://127.0.0.1:5000/predict', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          S1: parseFloat(form.symptoms[0] || 0),
+          S2: parseFloat(form.symptoms[1] || 0),
+          S3: parseFloat(form.symptoms[2] || 0),
+          S4: parseFloat(form.symptoms[3] || 0),
+          S5: parseFloat(form.symptoms[4] || 0),
+        }),
+      });
+      
+      const result = await response.json();
+      console.log('Prediction:', result.prediction);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };  
 
   return (
     <div className="form-section">

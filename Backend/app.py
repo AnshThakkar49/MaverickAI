@@ -1,39 +1,30 @@
+from flask import Flask, request, jsonify
+from flask_cors import CORS
 import joblib
 import numpy as np
-from flask import Flask, request, jsonify
-
-# Load the logistic regression model
-model = joblib.load('logistic_regression_model.pkl')
 
 app = Flask(__name__)
+CORS(app)  # Enable CORS
 
-@app.route('/')
-def home():
-    return "Welcome to the Disease Prediction API!"
+# Load the trained model
+model = joblib.load('logistic_regression_model.pkl')
 
 @app.route('/predict', methods=['POST'])
 def predict():
-    try:
-        # Get the data from the request
-        data = request.json
+    # Get the JSON data from the request
+    data = request.get_json()
 
-        # Extract symptom values from the request
-        symptoms = [data['S1'], data['S2'], data['S3'], data['S4'], data['S5']]
+    # Extract the symptoms
+    symptoms = np.array([data['S1'], data['S2'], data['S3'], data['S4'], data['S5']])
 
-        # Convert symptoms to numpy array and reshape for prediction
-        symptoms_array = np.array(symptoms).reshape(1, -1)
+    # Reshape for the model (if needed)
+    symptoms = symptoms.reshape(1, -1)
 
-        # Make prediction
-        prediction = model.predict(symptoms_array)
+    # Make prediction
+    prediction = model.predict(symptoms)
 
-        # Map the numeric prediction to the disease name
-        disease = int(prediction[0])
-
-        # Return the result as JSON
-        return jsonify({'disease': disease})
-
-    except Exception as e:
-        return jsonify({'error': str(e)})
+    # Send the response
+    return jsonify({'prediction': int(prediction[0])})
 
 if __name__ == '__main__':
     app.run(debug=True)
