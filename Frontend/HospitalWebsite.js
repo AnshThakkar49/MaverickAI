@@ -17,10 +17,10 @@ const HospitalWebsite = () => {
             <tbody>
               <tr>
                 <td><img src={`${process.env.PUBLIC_URL}/H_Logo.png`} alt="Hospital Logo" /></td>
-                <td><a>Home</a></td>
-                <td><a>Services</a></td>
-                <td><a>Doctors</a></td>
-                <td><a>Contact Us</a></td>
+                <td><a herf="#">Home</a></td>
+                <td><a herf = "#">Services</a></td>
+                <td><a herf = "#">Doctors</a></td>
+                <td><a herf = "#">Contact Us</a></td>
               </tr>
             </tbody>
           </table>

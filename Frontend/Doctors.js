@@ -7,7 +7,7 @@ const Doctors = () => {
       {/* Top Section */}
       <div className="top">
         <div>
-          Welcome to Our Hospital | <a href="SignIn.html">Sign in</a> | <a href="SignUp.html">Sign Up</a>
+          Welcome to Our Hospital | <a href="#">Start</a>
         </div>
       </div>
 
@@ -17,10 +17,11 @@ const Doctors = () => {
           <table>
             <tbody>
               <tr>
-                <td><img src={`${process.env.PUBLIC_URL}/H_Logo.png`} alt="Hospital Logo" /></td>
-                <td><a href="#">Services</a></td>
-                <td><a href="#">Doctors</a></td>
-                <td><a href="#">Contact Us</a></td>
+              <td><img src={`${process.env.PUBLIC_URL}/H_Logo.png`} alt="Hospital Logo" /></td>
+                <td><a herf="#">Home</a></td>
+                <td><a herf = "#">Services</a></td>
+                <td><a herf = "#">Doctors</a></td>
+                <td><a herf = "#">Contact Us</a></td>
               </tr>
             </tbody>
           </table>
